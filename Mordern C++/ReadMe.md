@@ -23,6 +23,27 @@
 
 ### **- 유니폼 초기화**
   - C++에 존재하는 많은 데이터의 초기화 값을 설정할 때에 '{}'으로 동일한 표기를 할 수 있도록 변화됨.
+<pre>
+  <code>
+    int x = 0;                               => int x {};
+    int array[] = {1,2,3};                   => int array{1,2,3];
+    int* p = nullptr;                        => int*p {};
+    Structure* pStructure = new pStructure;  => Structure* pStructure = new pStructure{};
+  </code>
+</pre>
+
+### **- 범위 기반 반복문**
+  - STL의 순차적 컨테이너의 [begin, end) 순회를 편리하게 할 수 있도록 해주는 반복문
+<pre>
+  <code>
+    std::map myMap;
+    for(auto e : myMap)
+    {
+        std::cout << e.first<< e.second << std::endl;
+    }
+  </code>
+</pre>
+
 ### **- 람다식 (Lambda Expression)**
 - 익명 함수라는 뜻으로 함수를 이름 없이 정의하는 것을 의미한다.
 
@@ -55,6 +76,19 @@
  > #### {} : 함수 몸체
  > ###### - 람다식이 수행할 기능을 정의하는 부분
 
+### **- 우측 값 참조**
+- 
+### **- 이동 생성자**
+  - 객체의 값을 다른 객체로 옮기는 것.</br> - 값이 다른 객체로 옮겨가는 것으로 기존 값은 데이터가 유실됨.</br> - 이러한 이동은 원본값이 이름 없는 객체일 때만 발생한다.
+<pre>
+  <code>
+    < 복사 생성자 >
+      MyClass(const MyClass&)
+    
+    < 이동 생성자 >
+    MyClass(MyClass&&)
+  </code>
+</pre>
 
 
 
