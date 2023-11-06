@@ -7,7 +7,7 @@
 
 **C++ 11 - 언어 변경 사항**
 -----
-### **- auto**  
+## **- auto**  
 - 컴파일러가 컴파일 타임에 타입을 특정할 수 있을 경우 타입을 auto로 간략하게 선언할 수 있다.
   <pre>
     <code>
@@ -105,8 +105,37 @@
 **C++ STL 변경 사항**
 ------
 
-### **- [스마트 포인터]()**
+### **- 스마트 포인터**
+- 기존의 포인터에서 메모리 해제까지 자동으로 수행되는 포인터
+> #### std::unique_ptr    [<코드 링크 (Click)>](https://github.com/tbvjchvkfl/Studing-C_plus_plus/blob/main/Mordern%20C%2B%2B/%EC%8A%A4%EB%A7%88%ED%8A%B8%20%ED%8F%AC%EC%9D%B8%ED%84%B0.cpp)
+> ###### - 엄격한 소유권 관리를 수행하는 스마트 포인터</br> - 포인터를 저장하고 있는 객체를 소유함.</br> - 복사 생성자, 복사 배정은 지원하지 않음.( 이동 생성자 & 이동 배정은 가능 )
 
 
-C++14
-[람다](https://github.com/tbvjchvkfl/Studing-C_plus_plus/edit/main/Mordern%20C%2B%2B/Read%20me.md)
+> #### std::shared_ptr [<코드 링크 (Click)>](https://github.com/tbvjchvkfl/Studing-C_plus_plus/blob/main/Mordern%20C%2B%2B/%EC%8A%A4%EB%A7%88%ED%8A%B8%20%ED%8F%AC%EC%9D%B8%ED%84%B0.cpp)
+> ###### - 내부에 참조 카운트가 존재하여 사용될 때마다 카운트가 올라가고, 파괴될 때 카운트가 0이 되며 메모리를 해제함.
+
+>#### std::weak_ptr
+>###### - shared_ptr을 가리키는 용도로 추가되었다.</br> - shared_ptr의 참조 카운트를 증가시키지 않는다.
+
+> ##### < 포인터 멤버 함수 >
+> ###### - unique_ptr::reset()     : 새로운 포인터 지정</br> - unique_ptr::get()       : 현재 포인터를 반환</br> - unique_ptr::release()   : 현재 포인터를 해제
+
+## **- std::tuple**
+- std::pair처럼 N개의 원소로 이루어진 집합
+<pre>
+  <code>
+    #include < tuple >
+      int main()
+      {
+          std::tuple<int, std::string, std::string> students;
+          students = std::make_tuple(1, "번 학생 : ", "이승민");
+          std::cout << "Student Num :" << std::get<0>(students) << std::endl;
+          std::cout << "Student Num :" << std::get<0>(students) << std::endl;
+          std::cout << "Student Num :" << std::get<0>(students) << std::endl;
+      }
+  </code>
+</pre>
+> #### < tuple의 생성 및 접근 법 >
+> ###### - std::make_tuple : 튜플 객체를 만들어준다.</br>- std::get< types >(tuple-object) : 튜플 객체의 원소에 접근한다.
+
+### **- 정규 표현식**
