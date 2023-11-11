@@ -19,8 +19,8 @@
 
 <pre>
   <code>
-  #include <iostream>
-  #include <fstream>
+  #include &lt;iostream&gt;
+  #include &lt;fstream&gt;
   bool LoadFile(const char* filename)
   {
     std::ifstream ist(filename);
