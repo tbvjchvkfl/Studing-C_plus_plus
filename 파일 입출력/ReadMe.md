@@ -67,3 +67,5 @@
 |std::ifstream::ate|at end.</br>파일의 가장 끝에서부터 시작.|
 |std::ifstream::app|append.</br>기존의 데이터에 이어 붙임. 출력은 파일의 가장 뒤에서부터 이루어짐.|
 |std::ifstream::trunc|truncate.</br>기존 내용 전부 삭제.|
+
+
