@@ -69,3 +69,4 @@
 |std::ifstream::trunc|truncate.</br>기존 내용 전부 삭제.|
 
 
+
