@@ -53,12 +53,21 @@
     }
   int main()
   {
-	  LoadFile("C:/Programmer/cpp/FileSystem/Data/SimpleData.txt"); // 절대 경로 표기법
+    LoadFile("C:/Programmer/cpp/FileSystem/Data/SimpleData.txt"); // 절대 경로 표기법
     LoadFile("Data/SimpleData.txt"); // 상대 경로 표기법
   }
   </code>
 </pre>
+
 <플래그>
+|상태|내용|
+|----|----|
+|goodbit|정상|
+|eofbit|파일의 끝에서 연산 시도|
+|failbit|논리적인 오류|
+|badbit|심각한 입/출력 오류|
+
+
 |ios_base_openmode|설명|
 |------|---|
 |std::ifstream::in|input.</br>기본값으로 파일을 읽기 위해 연다.|
