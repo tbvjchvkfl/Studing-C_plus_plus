@@ -76,15 +76,44 @@
 |std::ifstream::app|append.</br>기존의 데이터에 이어 붙임. 출력은 파일의 가장 뒤에서부터 이루어짐.|
 |std::ifstream::trunc|truncate.</br>기존 내용 전부 삭제.|
 
-<플래그>
-|상태|내용|
-|----|----|
-|goodbit|정상|
-|eofbit|파일의 끝에서 연산 시도|
-|failbit|논리적인 오류|
-|badbit|심각한 입/출력 오류|
 
+ ### - 에러 체크
+ - 파일 스트림 객체는 마지막으로 수행한 파일 처리에 대한 결과를 error state flag로 기록해둠.
+ - error state flag는 아래 멤버 함수를 통해 확인할 수 있다.
+   ##### - good() : 연산 성공</br> - fail() : 예상치 못한 처리 </br> - eof() : 파일의 끝에 도착 ( end of file의 약자로 파일의 끝에 도달했음을 알림 )</br> - bad() : 심각한 오류
 
+|상태|내용|good()|eof()|fail()|bad()|
+|----|----|-----|----|----|----|
+|goodbit|정상|true||||
+|eofbit|파일의 끝에서 연산 시도||true|||
+|failbit|논리적인 오류|||true||
+|badbit|심각한 입/출력 오류|||true|true|
+
+<pre>
+  <code>
+    bool LoadFile(const char* filename)
+    {
+        std::ifstream ist(filename);
+        if(!ist.good())
+        {
+            std::cerr << filename << "파일을 찾을 수 없습니다." << std::endl;
+            return false;
+        }
+        if(!ist.bad())
+        {
+            std::cerr << "파일이 손상되었습니다." << std::endl;
+            ist.close();
+            return false;
+        }
+        if(!ist.fail())
+        {
+            std::cerr << "잘못된 파일 포멧입니다." << std::endl;
+            ist.close();
+            return false;
+        }
+    }
+  </code>
+</pre>
 
 
 
