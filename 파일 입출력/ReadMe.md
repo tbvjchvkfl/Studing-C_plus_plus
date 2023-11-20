@@ -115,4 +115,31 @@
   </code>
 </pre>
 
-
+- exception 멤버 함수
+  - 위 내용을 iostream에서는 exception함수를 통해 일반화 할 수 있음.
+  - exception 멤버 함수는 지정 한 에러 상태를 탐지해 자동적으로 예외를 발생시켜준다.
+<pre>
+  <code>
+    boll LoadFile(const char* filename)
+    {
+      std::ifstream ist;
+      ist.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+      try
+      {
+        ist.open(filename);
+        char ch;
+        while(ist.get(ch))
+        {
+          std::cout << ch;
+        }
+        ist.close();
+     }
+     catch(std::ifstream::failure e)
+     {
+        std::cerr << "파일 연산 도중 예외가 발생했습니다. : " << e. what() << std::endl;
+        ist.close();
+        return false;                                          
+     }
+   }                                              
+  </code>
+</pre>
