@@ -121,7 +121,7 @@
   - exception 멤버 함수는 지정 한 에러 상태를 탐지해 자동적으로 예외를 발생시켜준다.
 <pre>
   <code>
-    boll LoadFile(const char* filename)
+    bool LoadFile(const char* filename)
     {
       std::ifstream ist;
       ist.exceptions(std::ifstream::failbit | std::ifstream::badbit);
