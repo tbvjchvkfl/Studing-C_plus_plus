@@ -58,5 +58,79 @@ Window 프로그래밍 기초
 3. 윈도우 메세지 처리
 4. 윈도우 프로시져 작성
 
+<pre>
+  <code>
+    #include &ltwindows.h&gt
+
+    const wchar_t gClassName[] = L"MyWindowClass";
+    LRESULT CALLBACK windowProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lParam);
+
+    int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
+    {
+      // 윈도우 클래스 등록
+      HWND hwnd;
+      WNDCLASSEX wc;
+
+      ZeroMemory(&wc, sizeof(WNDCLASSEX));
+
+      wc.style = CS_HREDRAW | CS_VREDRAW;
+      wc.lpszClassName = gClassName;
+      wc.hInstance = hInstance;
+      wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+      wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
+      wc.lpfnWndProc = WindowProc;
+      wc.cbSize = sizeof(WNDCLASSEX);
+
+      if(!RegisterClassEx(&wc))
+      {
+        MessageBox(nullptr, L"Failed to register window class!", L"Error", MB_ICONEXCLAMATION | MB_OK);
+        return 0;
+      }
+
+      // 윈도우 생성
+      hwnd = CreateWindowEx(NULL, gClassName, L"Hello Window", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, NULL, NULL, hInstance, NULL);
+
+      if (hwnd == nullptr)
+      {
+        MessageBox(nullptr, L"Failed to create window class!", L"Error", MB_ICONEXCLAMATION | MB_OK);
+        return 0;
+      }
+
+      ShowWindow(hwnd, nShowCmd);
+      UpdateWindow(hwnd);
+
+      // 윈도우 메세지 처리
+      MSG msg;
+      while (GetMessage(&msg, NULL, 0, 0))
+      {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+      }
+      return static_cast<int>(msg.wParam);
+    }
+        
+    //윈도우 프로시져 작성
+    LRESULT CALLBACK WindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+    {
+        switch(message)
+        {
+            case WM_CLOSE:
+                DestroyWindow(hwnd);
+                break;
+            case WM_DESTROY:
+                PostQuitMessage(0);
+                break;
+            default:
+                return DefWindowProc(hwnd, message, wParam, lParam);
+        }
+        return 0;
+    }
+  </code>
+</pre>
+
 ### - 윈도우 클래스 등록
-- 윈도우 앱 하나를 실행하기 위해서는 새로운 함수나 구조체가 필요하다.
+> #### WNDCLASSEX
+- Window Class Extra의 약자로 윈도우 클래스의 정보를 담고 있는 구조체이다.
+- EX가 붙어있으면 최신 버전이라는 뜻으로 추가 정보들을 담고 있다.
+
+> #### ZeroMemory( *WNDCLASSEX, sizeof(WNDCLASSEX));
