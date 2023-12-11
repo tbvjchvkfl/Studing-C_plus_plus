@@ -129,8 +129,10 @@ Window 프로그래밍 기초
 </pre>
 
 ### - 윈도우 클래스 등록
-> #### WNDCLASSEX
+> #### WNDCLASSEX wc;
 - Window Class Extra의 약자로 윈도우 클래스의 정보를 담고 있는 구조체이다.
 - EX가 붙어있으면 최신 버전이라는 뜻으로 추가 정보들을 담고 있다.
 
-> #### ZeroMemory( *WNDCLASSEX, sizeof(WNDCLASSEX));
+> #### ZeroMemory( &wc, sizeof(WNDCLASSEX));
+- 해당 메모리를 0으로 초기화하는 함수이다.
+- 첫 번째 파라미터는 초기화할 메모리의 포인터, 두 번째는 초기화할 메모리의 크기이다.
