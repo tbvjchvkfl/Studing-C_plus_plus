@@ -200,5 +200,22 @@ Window 프로그래밍 기초
 ### - 윈도우 프로시저
 > #### LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 - 메인 루프에서 메시지가 발견되어 DispatchMessage가 호출되면 이 함수가 자동으로 불려진다.
+- 프로그래머가 원하는 타이밍에 함수를 호출하는 것이 아닌 필요에 따라 함수가 호출되는 CALLBACK 방식의 함수이다.
+- 이러한 방식을 이벤트 주도 개발이라고 한다.
 
+> #### case WM_CLOSE:
+- 윈도우가 닫힐 때 전달되는 메시지이다.
+- 닫기 버튼을 누르거나, Alt + F4 입력되면 발생한다.
 
+> #### case WM_DESTROY:
+- 윈도우가 파괴될 때 불리는 메시지이다.
+- 메모리 해제와 같은 종료 시의 처리를 해준다.
+
+> #### DestroyWindow(hWnd);
+- 해당 윈도우를 파괴(메모리를 해제한다.)한다.
+
+> #### PostQuitMessage(0);
+- WM_QUIT이라는 윈도 메시지를 보낸다.
+
+> #### DefWindowProc(hWnd, message, wParam, lParam);
+- case로 지정한 메시지를 제외한 메시지들을 기본 메시지 프로시져를 통해 대신 처리하게 한다.
