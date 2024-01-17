@@ -142,3 +142,63 @@ Window 프로그래밍 기초
 - 윈도우 클래스를 등록하는 함수이다.
 - WNDCLASSEX 구조체를 매개변수로 받는다.
 - 성공하면 클래스의 ATOM이라는 운영체제에서 고유한 값(정수)을 반환하며, 실패하면 0을 반환한다.
+  
+### - 윈도우 생성
+> #### CreateWindowEx(NULL, gClassName, ...);
+- 윈도우를 생성하기 위해서는 CreateWindowEx라는 함수를 먼저 호출하여 윈도우를 생성해주어야한다.
+- 위 함수의 매개변수는 아래 표와 같다.
+
+
+|타입|이름|값|설명|
+|---|---|---|---|
+|DWORD|dwExStyle|NULL|기본 스타일 이외에 추가 스타일을 정할 때 사용. 추가 작업이 없는 경우 NULL|
+|LPCTSTR|lpClassName|gClassName|윈도우 클래스 이름을 지정한다. RegisterClassEx에서 지정한 이름으로 생성해야한다.|
+|LPCTSTR|lpWindowName|L"Hello Window"|윈도우 이름. 타이틀바가 있는 경우 타이틀바에 표시된다.|
+|DWORD|dwStyle|WS_OVERLAPPEDWINDOW|윈도우의 스타일. 최대화/최소화 버튼의 표시 유무, 스크롤바 표시 유무, 사이즈 조절 등 다앙하게 사용 가능. WS_OVERLAPPEDWINDOW는 대부분 기본 윈도우의 형태를 유지한다.|
+|int|x|CW_USEDEFAULT|윈도우의 x축 위치이다. CW_USEDEFAULT는 OS가 자동적으로 위치를 지정한다.|
+|int|y|CW_USEDEFAULT|윈도우의 y축 위치이다. CW_USEDEFAULT는 OS가 자동적으로 위치를 지정한다.|
+|int|nWidth|640|표시될 윈도우 창의 가로 크기이다.|
+|int|nHeight|480|표시될 윈도우 창의 세로 크기이다.|
+|HWND|hWndParent|NULL|부모 윈도우를 지정한다. 윈도우를 종속 관계로 만들 때 부모 윈도우를 지정하는 것.|
+|HMENU|hMenu|NULL|윈도우 상단에 표기되는 메뉴에 대한 핸들이다.|
+|HINSTANCE|hInstance|hInstance|응용 프로그램 인스턴스를 지정한다. 하나의 인스턴스에 여러 위도우를 만들 경우 해당 파라미터는 응용 프로그램의 고유 식별번호가 된다.|
+|LPVOID|lpParam|NULL|윈도우를 생성할 때 추가정보를 넘기기 위해 사용한다.|
+
+- CreateWindowEx()함수는 성공적으로 윈도우가 만들어졌을 경우 HWND값을 반환하고, 실패하면 NULL을 반환한다.
+
+> #### ShowWindow(hWnd, nShowCmd);
+- CreateWindowEx()함수를 통해 윈도우를 성공적으로 생성했다면 화면에 윈도우를 표시해주기위해 ShowWindow()함수를 호출해야한다.
+- ShowWindow()함수의 첫번째 파라미터는 '윈도우 핸들'이며, 두번째 파라미터는 '화면에 보여질 옵션'이 들어간다.
+- 위에서 사용한 nShowCmd는 윈도우 창의 기본 창, 최소화, 최대화 항목을 의미한다.
+
+> #### UpdateWindow(hWnd);
+- 윈도우 내용을 갱신한다.
+
+
+### - 윈도우 메시지 처리
+> #### MSG msg;
+- Message의 약자로 윈도우 메시지 정보를 담고 있는 구조체이다.
+
+> #### while(GetMessage(&msg, NULL, 0, 0)) {}
+- 무한 루프를 돌며 메시지 큐에서 메시지를 꺼내온다.
+- GetMessage함수는 윈도우가 종료되는 시점에만 False를 반환하고 그 외에는 계속 True를 반환한다.
+- GetMessage의 매개변수는 아래 표 참고
+
+|타입|이름|값|설명|
+|---|---|---|---|
+|LPMSG|lpMsg|&msg| MSG구조체에 대한 포인터이다.|
+|HWND|hWnd|메시지를 가져올 윈도우 핸들이다. NULL을 지정하면 윈도우 메시지와 쓰레드 메시지를 모두 가져올 수 있다.|
+|UINT|wMsgFilterMin|가져올 메시지 필터의 최소값.|
+|UINT|wMsgFilterMax|가져올 메시지 필터의 최대값. 0 / 0을 할당하면 전체 메시지를 확인한다.|
+
+> #### TranslateMessage(&msg);
+- 입력과 관련된 윈도우 메시지를 프로그래머가 처리하기 쉬운 포멧으로 바꿔준다.
+
+> #### DispatchMessage(&msg);
+- 가져온 메시지를 윈도우 프로시저로 보낸다.
+
+### - 윈도우 프로시저
+> #### LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+- 메인 루프에서 메시지가 발견되어 DispatchMessage가 호출되면 이 함수가 자동으로 불려진다.
+
+
