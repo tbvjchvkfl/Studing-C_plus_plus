@@ -6,3 +6,14 @@ Microsoft에서 제공하는 멀티미디어 종합 라이브러리로 하드웨
 DirectX 구성 요소
 - Direct2D : 2D 그래픽 표현 API
 - Direct3D : 3D 그래픽 표현 API
+
+Direct2D
+- Window를 만들 때의 규칙처럼 Direct2D역시 다음의 규칙을 따른다.
+
+1. Direct2D Factory 생성
+2. 렌더 타겟 생성
+3. 그리기
+4. 리소스 해제
+
+Direct2D Factory 생성
+- 
