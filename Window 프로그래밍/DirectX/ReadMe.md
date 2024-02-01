@@ -103,3 +103,58 @@ Rendering할 대상을 생성하는 작업이다. 메모리, 파일 등의 대�
 |---|---|
 |hwnd|역역을 구할 윈도우 핸들이다.|
 |lpRect|RECT에 대한 포인터이다. left,top멤버는 0이고 right, bottom멤버에 너비, 높이를 지정해서 반환한다.|
+
+> #### HRESULT CreateHwndRenderTarget(&#95;In&#95; CONST D2D1_RENDER_TARGET_PROPERTIES *renderTargetProperties, &#95;In&#95; CONST D2D1_HWND_RENDER_TARGET_PROPERTIES *hwndRenderTargetProperties, &#95;COM_Outptr_ID2D1HwndRenderTarget **hwndRenderTarget)
+> - 윈도우 핸들에서 렌더타겟을 생성한다. (윈도우 내부에 그래픽을 그리는 것.)
+
+|파라미터|설명|
+|---|---|
+|renderTargetProperties|렌더 타겟의 특성을 지정한다.</br>D2D1_RENDER_TARGET_PROPERTIES 구조체|
+|hwndRenderTargetProperties|윈도우 핸들의 고유 특성</br>D2D1_HWND_RENDERTARGET_PROPERTIES 구조체|
+|hwndRenderTarget|생성된 렌더타겟 인터페이스에 대한 포인터의 주소이다.|
+
+> - 위 표에서의 각 구조체는 다음과 같다.
+
+|구조체|설명|
+|---|---|
+|D2D1RENDER_TARGET_PROPERTIES|---|
+|D2D1_RENDER_TARGET_TYPE type;|열거형으로 아래 중 하나를 사용할 수 있다.</br>D2D1_RENDER_TARGET_TYPE_DEFAULT : 가능하면 GPU를 사용한다.</br>D2D_RENDER_TARGET_TYPE_SOFTWARE : CPU를 사용해 렌더링 한다.</br>D2D1_RENDER_TARGET_TYPE_HARDWARE : GPU를 사용해 렌더링한다.|
+|D2D1_PIXEL_FORMAT pixelFormat;|화면의 픽셀 하나가 어떤 형태인지를 지정하는 역할로 색상과 투명도를 지정할 수있다.|
+|FLOAT dpiX;|가로 dpi|
+|FLOAT dpiY;|세로 dpi|
+|D2D1_RENDER_TARGET_USAGE usage;|렌더타겟의 용도에 대해 지정한다.</br>D2D1_RENDER_TARGET_USAGE_NONE : GDI호환은 되지않음</br>D2D1_RENDER_TARGET_USAGE_FORCE_BITMAP_REMOTING : BITMAP으로 내부에서 그린 후 원격 클라이언트에 보내는 용도</br>D2D1_RENDER_TARGET_USAGE_GDI_COMPATIBLE : GDI호환|
+|D2D1FEATURE_LEVEL minLevel;|DirectX최소 요구 사항을 지정한다.</br>D2D1_FEATURE_LEVEL_DEFAULT : 특별한 제한을 두지 않음</br>D2D1_FEATURE_LEVEL_9 : DirectX9 호환</br>D2D1_FEATURE_LEVEL_10 : DirectX10 호환|
+|D2D1_HWND_RENDER_TARGET_PROPERTIES|---|
+|HWND hwnd; | 윈도우 핸들|
+|D2D1_SIZE_U pixelSize;|렌더 타겟의 크기</br>Size<UINT32>로 너비와 높이를 지정한다.|
+|D2D1_PRESENT_OPTIONS presentOptions;|PRESENT 옵션(렌더링된 이미지를 사용자에게 보여줄 때의 옵션을 지정)|
+
+그리기
+-
+<pre>
+  <code>
+    void OnPaint(HWND hwnd)
+    {
+      HDC hdc;
+      PAINTSTRUCT ps;
+      hdc = BeginPaint(hwnd, &ps);
+
+      // 3. 그리기
+      gpRenderTarget->BeginDraw();
+      gpRenderTarget->Clear(D2D1::ColorF(0.0f, 0.2f, 0.4f, 1.0f));
+      gpRenderTarget->EndDraw();
+
+      EndPaint(hwnd, &ps);
+    }
+  </code>
+</pre>
+
+> ### gpRenderTarget->BeginDraw();</br>gpRenderTarget->EndDraw();
+> - 렌더 타겟에 그릴 준비를 한다. GDI와 처럼 시작과 끝을 지정하면, gpRenderTarget내부에서 필요한 작업들을 수행한다.
+
+> ### gpRenderTarget->Clear(D2D1::ColorF(0.0f, 0.2f, 0.4f, 1.0f));
+> - Clear() 메서드는 렌더 타겟의 화면을 특정 색상으로 지우는 기능을 한다.</br>ColorF는 기존의 COLORREF와 달리 0.0f~1.0f로 범위를 표현한다.(ColorF(red, green, blue, alpha)순)
+
+메모리 해제
+- 
+
