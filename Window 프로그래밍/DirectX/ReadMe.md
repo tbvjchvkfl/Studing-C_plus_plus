@@ -157,4 +157,38 @@ Rendering할 대상을 생성하는 작업이다. 메모리, 파일 등의 대�
 
 메모리 해제
 - 
+<pre>
+  <code>
+    int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
+    {
+      MSG msg;
+      while(GetMessage(&mgs, NULL, 0, 0))
+      {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+      }
 
+      // 4. 메모리 해제
+      if(gpRenderTarget != nullptr)
+      {
+        gpRenderTarget->Release();
+        gpRenderTarget = nullptr;
+      }
+      if(gpD2DFactory != nullptr)
+      {
+        gpD2DFactory->Release();
+        gpD2DFactory = nullptr;
+      }
+      return (int)msg.wParam;
+    }
+  </code>
+</pre>
+
+> ### if(gpRenderTarget != nullptr)
+> - 인터페이스가 nullptr이 아닌지 확인
+
+> ### gpRenderTarget->Release();
+> - 인터페이스의 Release를 호출
+
+> ### gpRenderTarget = nullptr;
+> - 인터페이스를 초기화
