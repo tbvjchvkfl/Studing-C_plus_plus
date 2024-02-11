@@ -7,3 +7,7 @@ Computer Graphics
 BITMAP
 -
 Bit + Map의 약자로 비트로 구성된 맵을 의미한다. 디지털 이미지를 저장하는 이미지 파일 포멧 중 하나이며 가장 기본적인 방식이다.
+
+Alpha Blending
+-
+기존 색상에 알파값(투명도)을 더하는 것
