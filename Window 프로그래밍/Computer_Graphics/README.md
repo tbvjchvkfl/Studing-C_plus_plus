@@ -17,5 +17,5 @@ Alpha Blending
 파이프 라인
 -
 3차원 그래픽에서 어떻게 그리는지를 담당하는 것이 ***렌더링 파이프라인***이다.
-파이프 라인의 순서는 다음과 같다.
-Input Assembler -> Vertex Shader -> 
+파이프 라인의 순서는 다음과 같다.</br>
+Input Assembler -> Vertex Shader -> Hull Shader -> Tessellator -> DomainShader -> GeometryShader -> Rasterizer -> Pixel Shader -> Output Merger
