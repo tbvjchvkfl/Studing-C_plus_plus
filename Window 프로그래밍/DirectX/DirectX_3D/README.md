@@ -118,20 +118,51 @@ ID3D11Device::CreateTexture2D()
 ID3D11Device::CreateDepthStencilView()
 -
 Depth-Stencil View를 생성하는 함수이다.
-
+매개변수는 다음과 같다.
+|타입|매개변수|설명|
+|---|---|---|
+|ID3D11Resource*|pResource|Depth-Stencil에 사용될 리소스 포인터이다.|
+|const D3D11_DEPTH_STENCIL_VIEW_DESC*|pDesc|Depth-Stencil View에 대한 설명 구조체 포인터이다.|
+|ID3D11DepthStencilView**|ppDepthDSTencilView|생성된 Depth-Stencil View Interface에 대한 포인터이다.|
 
 
 ID3D11DeviceContext::OMSetRenderTargets()
 -
+렌더 타겟과 깊이-스텐실 버퍼를 바인딩하는 함수이다.
+매개 변수는 다음과 같다.
+|타입|변수|설명|
+|---|---|---|
+|UINT|NumViews|렌더 타겟의 숫자이다.</br>여러개의 렌더 타겟이 있다면 렌더 타겟의 개수를 넣고 다음 인자에 배열을 넘겨주어야한다.|
+|ID3D11RenderTargetView* const*|ppRenderTargetViews|뷰의 배열의 포인터를 넘겨주어야한다. 렌더 타겟 뷰의 숫자가 1개면 해당 뷰의 **를 넘겨준다.|
+|ID3D11DepthStencilView*|pDepthStencilView|Depth-Stencil View의 포인터를 넘겨준다.|
 
 ID3D11DeviceContext::RSSetViewports()
 -
+뷰포트를 바인딩하는 함수이다.
+RS는 Rasterrizer Stage의 약자로 3차원 공간의 정보를 2차원 이미지로 변환시킨다는 의미이다.
+매개변수는 UINT(뷰포트의 개수)타입과 const D3D11_VIEWPORT*(뷰포트의 배열 포인터) 타입의 데이터를 넣어주면 된다.
 
 ID3D11DeviceContext::ClearRenderTargetView()
 -
+렌더 타겟을 초기화한다.
+첫번째 매개변수에는 렌더타겟 뷰에 대한 포인터를 두번째인자에는 지울 색상에 대한 const FLOAT[4]타입을 넣어주면 된다.
 
 ID3D11DeviceContext::ClearDepthStencilView()
 -
+깊이-스텐실 리소스를 지운다.
+매개변수는 다음과 같다.
+|타입|변수|설명|
+|---|---|---|
+|ID3D11DepthStencilView*|pDepthStencilView|지울 Depth-Stencil View Interface에 대한 포인터이다.|
+|UINT|ClearFlags|지울 플래그로 어떤 리소스를 지울지 지정할 수 있다. OR연산으로 여러개를 지정하는 것도 가능하다.|
+|FLOAT|Depth|Depth Buffer를 지운다.|
+|UINT8|Stencil|Stencil Buffer를 지운다.|
 
 IDXGISwapChain::Present()
 -
+스왑체인을 이용해 화면에 그리는 것으로 SWAP/FLIP과 같은 의미이다.
+매개변수는 다음과 같다.
+|타입|변수|설명|
+|---|---|---|
+|UINT|SyncInterval|화면에 보여줄 프레임을 Vertical Blank Interval과 어떻게 동기화 하느냐라는 뜻으로 0일 경우 즉시 화면에 표시, 1~4라면 주사율 중 n번째 Vblank신호에 동기화 한다. Vblank란 디스플레이가 화면을 그리고 난 후 다시 그리기 위해 초기 지점으로 돌아가는 시간을 의미한다.|
+|UINT|Flags|프레젠테이션 옵션을 지정한다.|
