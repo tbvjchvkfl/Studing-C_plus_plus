@@ -209,3 +209,4 @@ COM (Component Object Model)
 >   - 32비트 정수로 성공/ 실패 여부 및 기타 정보를 나타냄.
 >   - Winerror.h에 정의되어있음.
 >   - 성공은 S_, 실패는 E_로 시작한다.(S_OK, E_FAIL)
+
