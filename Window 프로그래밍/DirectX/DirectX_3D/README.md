@@ -166,3 +166,8 @@ IDXGISwapChain::Present()
 |---|---|---|
 |UINT|SyncInterval|화면에 보여줄 프레임을 Vertical Blank Interval과 어떻게 동기화 하느냐라는 뜻으로 0일 경우 즉시 화면에 표시, 1~4라면 주사율 중 n번째 Vblank신호에 동기화 한다. Vblank란 디스플레이가 화면을 그리고 난 후 다시 그리기 위해 초기 지점으로 돌아가는 시간을 의미한다.|
 |UINT|Flags|프레젠테이션 옵션을 지정한다.|
+
+IDXGISwapChain::SetFullscreenState()
+-
+현재 만들어진 윈도우를 전체 화면 또는 창모드로 지정할 수 있다.
+매개변수로 BOOL타입 변수와 IDXGIOutput* 가 있는데, BOOL 타입 변수로 전체화면/창모드를 지정할 수 있고, IDXGIOutput* 변수로 출력 타겟을 지정할 수있다.(창모드로 설정했을 경우 무조건 NULL을 넘겨주어야한다.)
