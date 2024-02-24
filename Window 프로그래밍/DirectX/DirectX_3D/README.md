@@ -171,3 +171,41 @@ IDXGISwapChain::SetFullscreenState()
 -
 현재 만들어진 윈도우를 전체 화면 또는 창모드로 지정할 수 있다.
 매개변수로 BOOL타입 변수와 IDXGIOutput* 가 있는데, BOOL 타입 변수로 전체화면/창모드를 지정할 수 있고, IDXGIOutput* 변수로 출력 타겟을 지정할 수있다.(창모드로 설정했을 경우 무조건 NULL을 넘겨주어야한다.)
+
+ID3D11DeviceContext::Flush()
+-
+명령큐의 모든 명령을 GPU로 보낸다. CPU와 GPU는 물리적으로 분리되어 있는 하드웨어 이므로 명령들을 CPU에 쌓아두었다가 GPU가 가져가는 방식을 취한다. 이 때, CPU/GPU의 속도 차이로 인해 코드가 실행되는 시점에서 아직 처리되지 않은 명령이 남아있는 경우가 있는데, 이 와 같은 경우로 인해 처리되지 못한 명령들을 즉시 GPU에 적용한다.
+
+IDXGISwapChain::ResizeBuffers()
+-
+백버퍼의 크기를 재설정 한다.
+매개 변수는 다음과 같다.
+|타입|변수|설명|
+|---|---|---|
+|UINT|BufferCount|스왑체인의 버퍼 개수(FrontBuffer와 BackBuffer를 모두 포함한 개수)이다. 0을 지정하면 기존에 있던 버퍼 개수를 유지한다.|
+|UINT|Width|후면 버퍼의 가로 크기이다.|
+|UINT|Height|후면 버퍼의 세로 크기이다.|
+|DXGI_FORMAT|NweFormat|변경할 포멧을 지정한다. DXGI_FORMAT_UNKNOWN으로 설명하면 기존 포멧을 유지한다.|
+|UINT|SwapChainFlags|스왑체인의 추가 옵션이다. 특별한 설정이 필요없으면 0을 입력하면 된다.|
+
+
+윈도우 메세지 정리
+-
+
+> #### WM_SIZE
+> - 윈도우의 크기가 변경될 때 마다 전달된다. 사이즈 변경에는 다음과 같은 특이사항이 있는데, 이 정보들이 wParam으로 전달된다.</br>
+>   - SIZE_MINIMIZED : 최소화 되어서 트레이로 내려간다.</br>
+>   - SIZE_MAXIMIZED : 최대화 됩니다.</br>
+>   - SIZE_RESTORED : 최소화, 최대화가 아닌 상태에서 윈도우 크기가 변경되면 들어온다.
+
+> #### WMENTERSIZEMOVE
+> - 사용자가 윈도 테두리를 드래그 해서 사이즈를 조절하려고 할 때 발생한다.
+
+> #### WM_EXITSIZEMOVE
+> - 사용자가 윈도우 테두리를 놓으면(Released) 한번 발생한다.
+
+> #### WM_MENUCHAR
+> - 메뉴의 단축키가 눌렸는지를 확인하는 메시지이다.
+
+> #### WM_GETMINMAXINFO
+> - 사이즈나 위치가 변경되기 직전에 전달되는 메시지이다. 이를 통해 윈도우가 너무 크거나 작아지지 않도록 예외처리를 할 수 있다.
