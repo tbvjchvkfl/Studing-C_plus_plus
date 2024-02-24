@@ -209,3 +209,12 @@ IDXGISwapChain::ResizeBuffers()
 
 > #### WM_GETMINMAXINFO
 > - 사이즈나 위치가 변경되기 직전에 전달되는 메시지이다. 이를 통해 윈도우가 너무 크거나 작아지지 않도록 예외처리를 할 수 있다.
+
+ID3D11Device::CreateBuffer()
+-
+D3D11_BUFFER_DESC에서 생성한 Description으로 버퍼를 생성한다.
+|타입|매개변수|설명|
+|---|---|---|
+|const D3D11_BUFFER_DESC*|pDesc|버퍼를 설명하는 구조체에 대한 포인터이다.|
+|const D3D11_SUBRESOURCE_DATA*|pInitialData|초기 데이터를 저장한 구조체 포인터이다. null을 넘겨주면 미정 상태로 남게되며 사용하기 전 직접 데이터를 채워넣어야 한다.|
+|ID3D11Buffer**|ppBuffer|생성한 버퍼 인터페이스의 포인터이다.|
