@@ -218,3 +218,45 @@ D3D11_BUFFER_DESC에서 생성한 Description으로 버퍼를 생성한다.
 |const D3D11_BUFFER_DESC*|pDesc|버퍼를 설명하는 구조체에 대한 포인터이다.|
 |const D3D11_SUBRESOURCE_DATA*|pInitialData|초기 데이터를 저장한 구조체 포인터이다. null을 넘겨주면 미정 상태로 남게되며 사용하기 전 직접 데이터를 채워넣어야 한다.|
 |ID3D11Buffer**|ppBuffer|생성한 버퍼 인터페이스의 포인터이다.|
+
+ID3D11DeviceContext::Map()
+-
+넘겨준 리소스를 매핑하여 매핑된 서브 리소스 구조체를 봔환한다.
+|타입|변수|설명|
+|---|---|---|
+|ID3D11Resource*|pResource|매핑할 리소스이다. 버텍스 버퍼를 넘겨준다.|
+|UINT|Subresource|서브 리소스의 인덱스이다.|
+|D3D11_MAP|MapType|매핑 방식을 지정한다. 사용자가 지정한 값을 사용하고 이전 값은 버린다. 주로 DYNAMIC버퍼에 사용되며 CPU가 값을 사용하게된다.|
+|UINT|MapFlags|추가 옵션으로 GPU가 바빠서 대기하고 있을 때 CPU의 작업을 지정한다.|
+|D3D11_MAPPED_SUBRESOURCE*|pMappedResource|매핑된 리소스의 구조체를 돌려준다.|
+
+ID3D11DeviceContext::Unmap()
+-
+매핑한 리소스를 GPU가 읽어갈 수 있도록 해준다.
+첫번째 인자에는 ID3D11Resource*타입의 해제할 ID3D11Resource 인터페이스의 포인터를 두번째 인자에는 UINT타입의 해제될 서브 리소스를 넘겨준다.
+
+D3DCompiileFromFile()
+-
+셰이더를 컴파일할 때 사용하는 함수이다.
+|타입|변수|설명|
+|---|---|---|
+|LPCWSTR|pFiileName|컴파일 할 HLSL파일 이름을 지정한다.|
+|const D3D_SHADER_MACRO*|pDefiines|C에서 #define과 같이 HLSL의 매크로 목록을 넘겨준다.|
+|ID3DInclude*|pInclude|HLSL헤더 파일을 지정한다. HLSL코드에 #include와 같은 명령을 사용하면 컴파일 에러가 발생하기 때문에 헤더를 이 곳에서 넘겨주어야 한다. 넘겨줄 헤더가 없을 땐 NULL.|
+|LPCSTR|pEntrypoint|엔트리 포인트를 지정한다.(main, Winmain)|
+|LPCSTR|pTarget|셰이더 코드의 버전을 지정한다. |
+|UINT|Flags1|추가 컴파일 옵션이다.|
+|UINT|Falgs2|추가 컴파일 옵션이다.|
+|ID3DBlob**|ppCode|컴파일 성공한 바이너리 코드를 돌려준다.|
+|ID3DBlob**|ppErrorMsgs|에러 메시지를 담고 있는 블롭니다. 성공하면 NULL을 반환한다.|
+
+ID3D11Device::CreateVertexShader()</br>ID3D11Device::CreatePixelShader()
+-
+블롭에서 각각 셰이더들의 인터페이스를 구한다.
+|타입|변수|설명|
+|---|---|---|
+|const void*|pShaderBytecode|컴파일된 셰이더코드를 넘겨준다. ID3DBlob의 GetBufferPointer를 호출하면 버퍼의 포인터를 구할 수 있다.|
+|SIZE_T|BytecodeLength|컴파일된 셰이더 코드의 바이트 크기를 넘겨준다.|
+|ID3D11ClassLiinkage*|pClassLiinkage|#pragma comment("lib", "D3D11.lib")와 같은 기능으로 외부에서 정의되고 구현된 함수등을 함께 사용할 때 "Link"를 해줘야 하는데 이러한 것들을 지정한다.|
+|ID3D11VertexShader**/ID3D11PiixelShader**|ppVertexShader/ppPixelShader|생성된 셰이더 인터페이스를 반환한다.|
+
