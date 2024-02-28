@@ -260,3 +260,16 @@ ID3D11Device::CreateVertexShader()</br>ID3D11Device::CreatePixelShader()
 |ID3D11ClassLiinkage*|pClassLiinkage|#pragma comment("lib", "D3D11.lib")와 같은 기능으로 외부에서 정의되고 구현된 함수등을 함께 사용할 때 "Link"를 해줘야 하는데 이러한 것들을 지정한다.|
 |ID3D11VertexShader**/ID3D11PiixelShader**|ppVertexShader/ppPixelShader|생성된 셰이더 인터페이스를 반환한다.|
 
+ID3D11DeviceContext::VSSetShader()</br>ID3D11DeviceContext::PSSetShader()
+-
+파이프라인에서 VertexShader와 PixelShader 스테이지에 각 Shader들을 지정한다.
+|타입|변수|설명|
+|---|---|---|
+|ID3D11VertexShader*/ID3D11PixelShader*|pVertexShader/pPixelShader|설정할 셰이더 포인터를 넘겨준다. NULL을 넘겨줄 경우 Shader가 비활성화된다.|
+|ID3D11ClassInstance*const|ppClassInstance|클래스 인터페이스의 배열을 넘겨준다.|
+|UINT|NumClassInstance|클래스 인스턴스의 개수를 지정한다.|
+
+
+D3D11_INPUT_ELEMENT_DESC
+-
+InputAssembler에 값을 넘겨주기 위해서는 입력값이 어떤식으로 구성되어 있는지를 알려줘야한다. 이를 입력 레이아웃이라고 부르는데, 이를 이용하여 셰이더 코드에서 각각의 입력이 어떤형태로 구성되어 있는지 판단한다.
