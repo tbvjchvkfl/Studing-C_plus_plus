@@ -273,3 +273,44 @@ ID3D11DeviceContext::VSSetShader()</br>ID3D11DeviceContext::PSSetShader()
 D3D11_INPUT_ELEMENT_DESC
 -
 InputAssembler에 값을 넘겨주기 위해서는 입력값이 어떤식으로 구성되어 있는지를 알려줘야한다. 이를 입력 레이아웃이라고 부르는데, 이를 이용하여 셰이더 코드에서 각각의 입력이 어떤형태로 구성되어 있는지 판단한다.
+
+
+ID3D11Device::CreateInputLayout()
+-
+INPUT_ELEMENT_DESC에서 입력한 정보들을 토대로 입력 레이아웃을 생성한다.
+|타입|변수|설명|
+|---|---|---|
+|const D3D11_INPUTLELMENT_DESC*|pInputElementDescs|입력 Element 구조체 배열을 넘겨준다.|
+|UINT|NumLelements|Element의 개수|
+|const void*|pShaderBytecodeWithInputSignature|컴파일된 셰이더의 포인터를 넘겨준다. 이 때 넘겨주는 셰이더는 InputLayout요소들과 구조가 같아야한다. 그렇지 않을 경우 Error발생!!!|
+|SIZE_T|BytecodeLength|컴파일괸 셰이더의 크기이다.|
+|ID3D11InputLayout**|ppInputLayout|생성된 입력 레이아웃의 인터페이스의 포인터이다.|
+
+ID3D11DeviceContext::IASetInputLayout()
+-
+Input-Assembler에 입력 레이아웃을 연결한다.(Binding)
+매개변수로ID3D11InputLayout*를 지정해주어야한다.
+
+ID3D11DeviceContext::IASetVertexBuffers()
+-
+Input-Assembler에 버텍스버퍼를 연결한다. GPU는 해당 함수에서 연결한 버텍스 버퍼를 읽기 시작한다.
+|타입|변수|설명|
+|---|---|---|
+|UINT|StartSlot|연결된 슬롯 번호이다.|
+|UINT|NumBuffers|버텍스 버퍼개수이다.|
+|ID3D11Buffer* const*|ppVertexBuffers|버텍스 버퍼 배열의 포인터이다.|
+|const UINT*|pStrides|stride 값들의 배열 포인터이다.|
+|const UINT*|pOffsets|offset값들의 배열 포인터이다.|
+
+ID3D11DeviceContext::IASetPrimitiveTopology()
+-
+Primitive(기본 도형) 타입을 지정한다.(점으로 어떻게 삼각형을 그릴지)
+
+
+ID3D11DeviceContext::Draw()
+-
+화면에 그리기 함수이다.
+|타입|변수|설명|
+|---|---|---|
+|UINT|VertexCount|그릴 버텍스의 수를 지정한다.|
+|UINT StartVertexLocation|첫 번째 버텍스의 인덱스를 지정한다.|
