@@ -314,3 +314,85 @@ ID3D11DeviceContext::Draw()
 |---|---|---|
 |UINT|VertexCount|그릴 버텍스의 수를 지정한다.|
 |UINT StartVertexLocation|첫 번째 버텍스의 인덱스를 지정한다.|
+
+ID3D11ShaderResourceView
+-
+ShaderResourceView에 대한 인터페이스이다. 셰이더에서 텍스쳐를 읽어오는데 사용된다.
+
+D3D11_SHADER_RESOURCE_VIEW_DESC
+-
+셰이더 리소스 뷰를 생성하기 위한 구조체이다.
+
+D3D11_SUBRESOURCE_DATA
+-
+하위 리소스를 초기화할 때 사용하는 정보에 대한 구조체이다. 리소스는 여러개의 하위 리소스로 구본되어 있기때문에 하위 리소스 개념을 사용한다.
+
+ID3D11Device::CreateShaderResourceView()
+-
+셰이더리소스의 데이터에 접근하기 위한 셰이더 리소스 뷰를 생성한다.
+
+ID3D11DeviceContext::PSSetShaderResources()
+-
+셰이더 리소스 배열을 픽셀 셰이더 스테이지로 바인딩한다. 첫번째 인자에 넘겨줄 셰이더 리소스 배열의 인덱스를 두번째 인자에는 넘겨줄 리소스 뷰의 개수를 마지막 인자에는 셰이더 리소스 뷰의 배열을 넘겨준다.
+
+D3D11_SAMPLER_DESC
+-
+샘플러 상태를 설정하는 구조체이다. 셰이더에서 사용했던 방식과 동일하다.
+
+
+ID3D11DeviceContext::PSSetSamplers()
+-
+샘플러 배열을 픽셀 셰이더 파이프라인 스테이지에 지정한다.
+
+
+D3D11_BLEND_DESC
+-
+블렌드 상태를 생성하기 위한 구조체이다.
+|타입|변수|설명|
+|---|---|---|
+|BOOL|AlphaToCoverageEnable|Alpha-To-Coverage 멀티 샘플링 기법을 사용할 지 지정한다.|
+|BOOL|IndependentBlendEnable|여러 렌더 타겟에서 독립적인 블렌딩을 사용할 것인지를 지정한다. False로 설정할 경우 렌더 타겟 0번째만 사용한다.|
+|D3D11_RENDER_TARGET_BLEND_DESC|RednerTarget[8]|렌더 타겟 배열에 대한 설정이다. OM 스테이지에서는 여러개의 렌더타겟을 병합할 수 있다.|
+
+D3D11_RENDER_TARGET_BLEND_DESC
+-
+렌더 타겟의 블렌드 상태를 생성하기 위한 구조체이다.
+|타입|변수|설명|
+|---|---|---|
+|BOOL|BlendEnable|블렌딩을 켜거나 끈다.|
+|D3D11_BLEND|srcBlend|픽셀 셰이더 출력의 RGB값이다.|
+|D3D11_BLEND|DestBlend|렌더 타겟에 있는 RGB값이다.|
+|D3D11_BLEND|BlendOP|위 두 값을 연산하는 방법이다.|
+|D3D11_BLEND|srcBlendAlpha|픽셀 셰이더 출력의 알파값이다.|
+|D3D11_BLEND|DestBlendAlpha|렌더 타겟에 있는 알파 값이다.|
+|D3D11_BLEND_OP|BlendOpAlpha|위 두 값을 연산하는 방법이다.|
+|UINT8|RenderTargetWriteMask|마스크값이다.|
+
+ID3D11Device::CreateBlendState()
+-
+Ouput-Merger스테이지에 사용할 블렌딩 상태를 생성한다.
+|타입|변수|설명|
+|---|---|---|
+|const D3D11_BLEND_DESC*|pBlendStateDesc|블렌딩 상태 구조체 포인터이다.|
+|ID3D11BlendState**|ppBlendState|생성할 블렌딩 상태 인터페이스의 포인터이다.|
+
+ID3D11DeviceContext::OMSetBlendState()
+-
+Output-Merger 스테이지에 블렌딩 상태를 지정한다.
+|타입|변수|설명|
+|---|---|---|
+|ID3D11BlendState*|pBlendState|블렌딩 상태 인터페이스를 넘겨준다. NULL을 넘겨주면 기본 값으로 설정한다.(블렌드 옵션 꺼짐)|
+|const FLOAT[4]|BlendFactor|RGBA값들에 대한 인자를 지정한다.(factor를 지정)|
+|UINT|SampleMask|렌더 타겟에 적용되는 샘플링 마스크 값이다. 마스크 값을 사용하는 것은 앱에서 지정한다.|
+
+QueryPerformanceFrequency()
+-
+운영체제에서 사용하는 성능 카운터의 주파수를 구해온다. 이 값은 컴퓨터가 부팅될 때 고정되어 있는 값이다. 매개변수로는 LARGE_INTERGER*타입의 현재 성능 카운터의 주파수를 받아올 포인터를 넘겨준다.
+
+QueryPerformanceCount()
+-
+성능 카운터의 현재 값을 가져온다. 프리퀀시와 마찬가지로 매개변수에 성능 카운터 값을 가져올 포인터를 넘겨준다.
+
+SetWindowText()
+-
+윈도우에 텍스트로 표현되게 해준다. 주로 타이틀 바에 표시한다.
