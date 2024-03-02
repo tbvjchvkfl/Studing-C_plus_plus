@@ -304,8 +304,8 @@ Input-Assembler에 버텍스버퍼를 연결한다. GPU는 해당 함수에서 �
 
 ID3D11DeviceContext::IASetPrimitiveTopology()
 -
-Primitive(기본 도형) 타입을 지정한다.(점으로 어떻게 삼각형을 그릴지)
-
+Primitive(기본 도형) 타입을 지정한다.(점으로 어떻게 삼각형을 그릴지)</br>
+매개변수로 PrimitiveType을 넘겨준다.(예시->D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 
 ID3D11DeviceContext::Draw()
 -
