@@ -54,4 +54,4 @@ Contents
 ### [5. 파일 입출력](https://github.com/tbvjchvkfl/Studing-C_plus_plus/tree/main/%ED%8C%8C%EC%9D%BC%20%EC%9E%85%EC%B6%9C%EB%A0%A5)
 ### [6. Window 프로그래밍](https://github.com/tbvjchvkfl/Studing-C_plus_plus/tree/main/Window%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D)
 ### [7. DirectX 2D](https://github.com/tbvjchvkfl/Studing-C_plus_plus/tree/main/Window%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/DirectX)
-### [7. DirectX 3D](https://github.com/tbvjchvkfl/Studing-C_plus_plus/tree/main/Window%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/DirectX/DirectX_3D)
+### [8. DirectX 3D](https://github.com/tbvjchvkfl/Studing-C_plus_plus/tree/main/Window%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/DirectX/DirectX_3D)
